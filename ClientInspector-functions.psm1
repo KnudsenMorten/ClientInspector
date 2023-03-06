@@ -2091,3 +2091,64 @@ Function Get-AzDceListAll ($AzAppId, $AzAppSecret, $TenantId)
 
         Return $Data
 }
+
+Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($DcrName, $DceName, $AzAppId, $AzAppSecret, $TenantId)
+{
+        $AzDcrDceDetails = Get-AzDcrDceDetails -DcrName $DcrName -DceName $DceName `
+                                               -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
+
+        Post-AzLogAnalyticsLogIngestCustomLogDcrDce  -DceUri $AzDcrDceDetails[2] -DcrImmutableId $AzDcrDceDetails[6] `
+                                                     -DcrStream $AzDcrDceDetails[7] -Data $DataVariable `
+                                                     -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
+        
+        # Write result to screen
+        $DataVariable | Out-String | Write-Verbose 
+}
+
+Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId, $TableName, $DcrName, $DceName, $SchemaSourceObject, `
+                                              $AzAppId, $AzAppSecret, $TenantId, $LogIngestServicePricipleObjectId, $AzDcrSetLogIngestApiAppPermissionsDcrLevel)
+{
+    #-------------------------------------------------------------------------------------------
+    # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
+    #-------------------------------------------------------------------------------------------
+
+        If ( ($TableDcrSchemaCreateUpdateAppId) -and ($TableDcrSchemaCreateUpdateAppSecret) )
+            {
+                #-----------------------------------------------------------------------------------------------
+                # Check if table and DCR exist - or schema must be updated due to source object schema changes
+                #-----------------------------------------------------------------------------------------------
+
+                    # Get insight about the schema structure
+                    $Schema = Get-ObjectSchema -Data $DataVariable -ReturnFormat Array
+
+                    $StructureCheck = Get-AzLogAnalyticsTableAzDataCollectionRuleStatus -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -TableName $TableName -DcrName $DcrName -SchemaSourceObject $Schema `
+                                                                                        -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId
+
+
+                #-----------------------------------------------------------------------------------------------
+                # Structure check = $true -> Create/update table & DCR with necessary schema
+                #-----------------------------------------------------------------------------------------------
+
+                    If ($StructureCheck -eq $true)
+                        {
+                            If ( ( $env:COMPUTERNAME -in $AzDcrDceTableCreateFromReferenceMachine) -or ($AzDcrDceTableCreateFromAnyMachine -eq $true) )    # manage table creations
+                                {
+                                    # build schema to be used for LogAnalytics Table
+                                    $Schema = Get-ObjectSchema -Data $DataVariable -ReturnType Table -ReturnFormat Hash
+
+                                    CreateUpdate-AzLogAnalyticsCustomLogTableDcr -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema -TableName $TableName `
+                                                                                 -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId
+
+
+                                    # build schema to be used for DCR
+                                    $Schema = Get-ObjectSchema -Data $DataVariable -ReturnType DCR -ReturnFormat Hash
+
+                                    CreateUpdate-AzDataCollectionRuleLogIngestCustomLog -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+                                                                                        -DceName $DceName -DcrName $DcrName -TableName $TableName `
+                                                                                        -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
+                                                                                        -AzDcrSetLogIngestApiAppPermissionsDcrLevel $AzDcrSetLogIngestApiAppPermissionsDcrLevel `
+                                                                                        -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId
+                                }
+                        }
+                } # create table/DCR
+}
