@@ -177,7 +177,7 @@ Write-Output ""
     # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
     #-------------------------------------------------------------------------------------------
 
-        CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+        CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                              -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                              -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                              -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -242,7 +242,7 @@ Write-Output ""
     # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
     #-------------------------------------------------------------------------------------------
 
-        CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+        CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                              -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                              -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                              -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -298,7 +298,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -355,7 +355,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -411,7 +411,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -468,7 +468,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -531,7 +531,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -604,7 +604,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -679,7 +679,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -838,7 +838,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1088,7 +1088,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1262,7 +1262,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1350,7 +1350,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1428,7 +1428,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1508,7 +1508,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1574,7 +1574,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1630,7 +1630,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1732,7 +1732,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1845,7 +1845,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -1947,7 +1947,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2075,7 +2075,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2169,7 +2169,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2255,7 +2255,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2327,8 +2327,9 @@ Write-Output ""
             }
         Else
             {
-                $DataVariable = $LocalAdmins
-                
+                # convert CIM array to PSCustomObject and remove CIM class information
+                $DataVariable = Convert-CimArrayToObjectFixStructure -data $LocalAdmins
+    
                 # add CollectionTime to existing array
                 $DataVariable = Add-CollectionTimeToAllEntriesInArray -Data $DataVariable
 
@@ -2346,7 +2347,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2432,7 +2433,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2508,7 +2509,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
@@ -2615,7 +2616,7 @@ Write-Output ""
         # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
         #-------------------------------------------------------------------------------------------
 
-            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId -SchemaSourceObject $Schema `
+            CheckCreateUpdate-TableDcr-Structure -AzLogWorkspaceResourceId $ClientLogAnalyticsWorkspaceResourceId  `
                                                  -AzAppId $TableDcrSchemaCreateUpdateAppId -AzAppSecret $TableDcrSchemaCreateUpdateAppSecret -TenantId $TenantId `
                                                  -DceName $DceName -DcrName $DcrName -TableName $TableName `
                                                  -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `

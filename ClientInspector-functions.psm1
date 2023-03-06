@@ -2105,7 +2105,7 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $D
         $DataVariable | Out-String | Write-Verbose 
 }
 
-Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId, $TableName, $DcrName, $DceName, $SchemaSourceObject, `
+Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId, $TableName, $DcrName, $DceName, `
                                               $AzAppId, $AzAppSecret, $TenantId, $LogIngestServicePricipleObjectId, $AzDcrSetLogIngestApiAppPermissionsDcrLevel)
 {
     #-------------------------------------------------------------------------------------------
