@@ -2092,7 +2092,7 @@ Function Get-AzDceListAll ($AzAppId, $AzAppSecret, $TenantId)
         Return $Data
 }
 
-Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($DcrName, $DceName, $AzAppId, $AzAppSecret, $TenantId)
+Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $DceName, $AzAppId, $AzAppSecret, $TenantId)
 {
         $AzDcrDceDetails = Get-AzDcrDceDetails -DcrName $DcrName -DceName $DceName `
                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId

@@ -187,7 +187,7 @@ Write-Output ""
     # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
     #-----------------------------------------------------------------------------------------------
 
-        Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+        Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                            -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 ###############################################################
@@ -252,7 +252,7 @@ Write-Output ""
     # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
     #-----------------------------------------------------------------------------------------------
 
-        Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+        Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                            -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -308,7 +308,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -365,7 +365,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
     ####################################
@@ -421,7 +421,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -478,7 +478,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -541,7 +541,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -614,7 +614,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 ###############################################################
@@ -689,7 +689,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -848,7 +848,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1098,7 +1098,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1272,7 +1272,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1360,7 +1360,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1438,7 +1438,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1518,7 +1518,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1584,7 +1584,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1640,7 +1640,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1742,7 +1742,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1855,7 +1855,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -1957,7 +1957,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2085,7 +2085,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2179,7 +2179,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2265,7 +2265,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2291,7 +2291,7 @@ Write-Output ""
             
         Write-Output "Collecting Local Admin information"
 
-        $LocalAdminGroupname = (Get-localgroup -Sid S-1-5-32-544).name       # SID S-1-5-32-544 = local computers Administrators group
+        $LocalAdminGroupname = (Get-localgroup -Sid S-1-5-32-544).name       # SID S-1-5-32-544 = local computer Administrators group
         $LocalAdmins = Get-LocalGroupMember -Group  $LocalAdminGroupname
 
     #-------------------------------------------------------------------------------------------
@@ -2327,9 +2327,8 @@ Write-Output ""
             }
         Else
             {
-                # convert CIM array to PSCustomObject and remove CIM class information
-                $DataVariable = Convert-CimArrayToObjectFixStructure -data $LocalAdmins
-    
+                $DataVariable = $LocalAdmins
+                
                 # add CollectionTime to existing array
                 $DataVariable = Add-CollectionTimeToAllEntriesInArray -Data $DataVariable
 
@@ -2357,7 +2356,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2443,7 +2442,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2519,7 +2518,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
@@ -2626,7 +2625,7 @@ Write-Output ""
         # Upload data to LogAnalytics using DCR / DCE / Log Ingestion API
         #-----------------------------------------------------------------------------------------------
 
-            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName `
+            Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output -DceName $DceName -DcrName $DcrName -Data $DataVariable `
                                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
 
