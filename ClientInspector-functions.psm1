@@ -1,6 +1,4 @@
-﻿
-
-Function CreateUpdate-AzLogAnalyticsCustomLogTableDcr ($TableName, $SchemaSourceObject, $AzLogWorkspaceResourceId, $AzAppId, $AzAppSecret, $TenantId)
+﻿Function CreateUpdate-AzLogAnalyticsCustomLogTableDcr ($TableName, $SchemaSourceObject, $AzLogWorkspaceResourceId, $AzAppId, $AzAppSecret, $TenantId)
 {
 
         <#  TESTING !!
@@ -568,6 +566,13 @@ Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId, $A
 
 Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql, $AzAppId, $AzAppSecret, $TenantId)
 {
+
+<#
+
+    $DcrResourceId = $DcrRuleId
+    $transformKql  = $transformKql
+
+#>
     #--------------------------------------------------------------------------
     # Connection
     #--------------------------------------------------------------------------
@@ -608,29 +613,39 @@ Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql,
     #--------------------------------------------------------------------------
 
         $DcrUri = "https://management.azure.com" + $DcrResourceId + "?api-version=2022-06-01"
-        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET
-        $DcrObj = $DCR.Content | ConvertFrom-Json
+        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET -Headers $Headers
 
     #--------------------------------------------------------------------------
     # update payload object
     #--------------------------------------------------------------------------
 
-        $DCRObj.properties.dataFlows[0].transformKql = $transformKql
+        If ($DCR.properties.dataFlows[0].transformKql)
+            {
+                # changing value on existing property
+                $DCR.properties.dataFlows[0].transformKql = $transformKql
+            }
+        Else
+            {
+                # Adding new property to object
+                $DCR.properties.dataFlows[0] | Add-Member -NotePropertyName transformKql -NotePropertyValue $transformKql -Force
+            }
+
 
     #--------------------------------------------------------------------------
     # update existing DCR
     #--------------------------------------------------------------------------
 
-        Write-host "  Updating transformKql for DCR"
+        Write-host "Updating transformKql for DCR"
         Write-host $DcrResourceId
 
         # convert modified payload to JSON-format
-        $DcrPayload = $DcrObj | ConvertTo-Json -Depth 20
+        $DcrPayload = $Dcr | ConvertTo-Json -Depth 20
 
         # update changes to existing DCR
         $DcrUri = "https://management.azure.com" + $DcrResourceId + "?api-version=2022-06-01"
         $DCR = Invoke-RestMethod -Uri $DcrUri -Method PUT -Body $DcrPayload -Headers $Headers
 }
+
 
 Function Update-AzDataCollectionRuleLogAnalyticsCustomLogTableSchema ($SchemaSourceObject, $TableName, $DcrResourceId, $AzLogWorkspaceResourceId, $AzAppId, $AzAppSecret, $TenantId)
 {
