@@ -1491,12 +1491,12 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 <#  TROUBLESHOOTING
 
     # ClientInspector
-    $AzLogWorkspaceResourceId             = $ClientLogAnalyticsWorkspaceResourceId
-    $ableName                             = $TableName
+    $AzLogWorkspaceResourceId             = $LogAnalyticsWorkspaceResourceId
+    $TableName                            = $TableName
     $DcrName                              = $DcrName
     $SchemaSourceObject                   = $Schema
-    $AzAppId                              = $TableDcrSchemaCreateUpdateAppId
-    $AzAppSecret                          = $TableDcrSchemaCreateUpdateAppSecret
+    $AzAppId                              = $LogIngestAppId
+    $AzAppSecret                          = $LogIngestAppSecret
     $TenantId                             = $TenantId
 
 #>
@@ -2114,6 +2114,20 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $D
 Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId, $TableName, $DcrName, $DceName, $SchemaSourceObject, `
                                               $AzAppId, $AzAppSecret, $TenantId, $LogIngestServicePricipleObjectId, $AzDcrSetLogIngestApiAppPermissionsDcrLevel)
 {
+    <#
+
+        $AzLogWorkspaceResourceId                   = $LogAnalyticsWorkspaceResourceId
+        $AzAppId                                    = $LogIngestAppId
+        $AzAppSecret                                = $LogIngestAppSecret
+        $TenantId                                   = $TenantId
+        $DceName                                    = $DceName
+        $DcrName                                    = $DcrName
+        $TableName                                  = $TableName
+        $LogIngestServicePricipleObjectId           = $AzDcrLogIngestServicePrincipalObjectId
+        $AzDcrSetLogIngestApiAppPermissionsDcrLevel = $AzDcrSetLogIngestApiAppPermissionsDcrLevel
+
+    #>
+
     #-------------------------------------------------------------------------------------------
     # Create/Update Schema for LogAnalytics Table & Data Collection Rule schema
     #-------------------------------------------------------------------------------------------
