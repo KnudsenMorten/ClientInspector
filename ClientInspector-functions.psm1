@@ -442,7 +442,6 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
                 }
                 $jsonRoleBody = $roleBody | ConvertTo-Json -Depth 6
 
-                Invoke-RestMethod -Uri $roleUrl -Method PUT -Body $jsonRoleBody -headers $Headers -ErrorAction SilentlyContinue
                 $result = try
                     {
                         Invoke-RestMethod -Uri $roleUrl -Method PUT -Body $jsonRoleBody -headers $Headers -ErrorAction SilentlyContinue
