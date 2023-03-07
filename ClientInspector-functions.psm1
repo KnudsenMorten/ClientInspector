@@ -1336,26 +1336,22 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, 
                         {
                             $DataSendRemaining = $TotalDataLines - $indexLoopFrom
 
-                            Do
+                            If ($DataSendRemaining -le $DataSendAmount)
                                 {
-                                    If ($DataSendRemaining -le $DataSendAmount)
-                                        {
-                                            # send last batch - or whole batch
-                                            $indexLoopTo    = $TotalDataLines - 1   # cause we start at 0 (zero) as first record
-                                            $DataScopedSize = $Data   # no need to split up in batches
-                                        }
-                                    ElseIf ($DataSendRemaining -gt $DataSendAmount)
-                                        {
-                                            # data must be splitted in batches
-                                            $indexLoopTo    = $indexLoopFrom + $DataSendAmount
-                                            $DataScopedSize = $Data[$indexLoopFrom..$indexLoopTo]
-                                        }
-
-                                    $SizeDataSingleEntryJson  = (ConvertTo-Json -Depth 100 -InputObject @($DataScopedSize) -Compress).length
-                                    $DataSendAmountDecimal    = (( 1mb - 300Kb) / $SizeDataSingleEntryJson)   # 300 Kb is overhead (my experience !)
-                                    $DataSendAmount           = [math]::Floor($DataSendAmountDecimal)
+                                    # send last batch - or whole batch
+                                    $indexLoopTo    = $TotalDataLines - 1   # cause we start at 0 (zero) as first record
+                                    $DataScopedSize = $Data   # no need to split up in batches
                                 }
-                            Until ($DataSendAmount -ge 1)
+                            ElseIf ($DataSendRemaining -gt $DataSendAmount)
+                                {
+                                    # data must be splitted in batches
+                                    $indexLoopTo    = $indexLoopFrom + $DataSendAmount
+                                    $DataScopedSize = $Data[$indexLoopFrom..$indexLoopTo]
+                                }
+
+                            $SizeDataSingleEntryJson  = (ConvertTo-Json -Depth 100 -InputObject @($DataScopedSize) -Compress).length
+                            $DataSendAmountDecimal    = (( 1mb - 300Kb) / $SizeDataSingleEntryJson)   # 300 Kb is overhead (my experience !)
+                            $DataSendAmount           = [math]::Floor($DataSendAmountDecimal)
 
                             # Convert data into JSON-format
                             $JSON = ConvertTo-Json -Depth 100 -InputObject @($DataScopedSize) -Compress
