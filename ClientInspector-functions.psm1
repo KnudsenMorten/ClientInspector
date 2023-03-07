@@ -129,15 +129,15 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
         $AzAppId                                    = $TableDcrSchemaCreateUpdateAppId
         $AzAppSecret                                = $TableDcrSchemaCreateUpdateAppSecret
 
-        # ClientInspector testing
-        $AzLogWorkspaceResourceId                   = $ClientLogAnalyticsWorkspaceResourceId
+      # ClientInspector testing
+        $AzLogWorkspaceResourceId                   = $LogAnalyticsWorkspaceResourceId
         $SchemaSourceObject                         = $Schema
-        $LogIngestServicePricipleObjectId           = $Global:AzDcrLogIngestServicePrincipalObjectId
-        $AzDcrSetLogIngestApiAppPermissionsDcrLevel = $Global:AzDcrSetLogIngestApiAppPermissionsDcrLevel
+        $LogIngestServicePricipleObjectId           = $AzDcrLogIngestServicePrincipalObjectId
+        $AzDcrSetLogIngestApiAppPermissionsDcrLevel = $AzDcrSetLogIngestApiAppPermissionsDcrLevel
         $TablePrefix                                = $AzDcrPrefixClient
 
-        $AzAppId                                    = $TableDcrSchemaCreateUpdateAppId
-        $AzAppSecret                                = $TableDcrSchemaCreateUpdateAppSecret
+        $AzAppId                                    = $LogIngestAppId
+        $AzAppSecret                                = $LogIngestAppSecret
         # $DceName 
         # $TenantId
 #>
@@ -346,7 +346,7 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
         Invoke-WebRequest -Uri $Uri -Method PUT -Body $DcrPayload -Headers $Headers
         
         # sleeping to let API sync up before modifying
-        Start-Sleep -s 3
+        Start-Sleep -s 5
 
     #--------------------------------------------------------------------------
     # build full payload to create DCR for log ingest (api) to custom logs
@@ -408,8 +408,8 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
     #--------------------------------------------------------------------------
 
         Write-Host ""
-        Write-host "Waiting 10 sec to let Azure sync up so DCR rule can be retrieved from Azure Resource Graph"
-        Start-Sleep -Seconds 10
+        Write-host "Waiting 15 sec to let Azure sync up so DCR rule can be retrieved from Azure Resource Graph"
+        Start-Sleep -Seconds 15
 
     #--------------------------------------------------------------------------
     # get DCR information using Azure Resource Graph
