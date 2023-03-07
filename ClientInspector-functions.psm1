@@ -1323,7 +1323,7 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, 
                     If ($TotalDataLines -gt 1)
                         {
                             $SizeDataSingleEntryJson  = (ConvertTo-Json -Depth 100 -InputObject @($Data[0]) -Compress).length
-                            $DataSendAmountDecimal    = (( 1mb - 300Kb) / $SizeDataSingleEntryJson)   # 300 Kb is overhead (my experience !)
+                            $DataSendAmountDecimal    = (( 1mb - 500Kb) / $SizeDataSingleEntryJson)   # 500 Kb is overhead (my experience !)
                             $DataSendAmount           = [math]::Floor($DataSendAmountDecimal)
                         }
                     Else
