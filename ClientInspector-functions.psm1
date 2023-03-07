@@ -42,6 +42,17 @@ Function CreateUpdate-AzLogAnalyticsCustomLogTableDcr ($TableName, $SchemaSource
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
     #--------------------------------------------------------------------------
     # LogAnalytics Table check
@@ -59,50 +70,49 @@ Function CreateUpdate-AzLogAnalyticsCustomLogTableDcr ($TableName, $SchemaSource
     # Creating LogAnalytics Table based upon data source schema
     #--------------------------------------------------------------------------
 
+        $tableBody = @{
+                            properties = @{
+                                            schema = @{
+                                                            name    = $Table
+                                                            columns = @($SchemaSourceObject)
+                                                        }
+                                        }
+                        } | ConvertTo-Json -Depth 10
 
-                $tableBody = @{
-                                    properties = @{
-                                                    schema = @{
-                                                                    name    = $Table
-                                                                    columns = @($SchemaSourceObject)
-                                                                }
-                                                }
-                              } | ConvertTo-Json -Depth 10
+        # create/update table schema using REST
+        $TableUrl = "https://management.azure.com" + $AzLogWorkspaceResourceId + "/tables/$($Table)?api-version=2021-12-01-preview"
 
-                # create/update table schema using REST
-                $TableUrl = "https://management.azure.com" + $AzLogWorkspaceResourceId + "/tables/$($Table)?api-version=2021-12-01-preview"
+        Try
+            {
+                Write-Host ""
+                Write-host "Trying to update existing LogAnalytics table schema for table [ $($Table) ] in "
+                Write-host $AzLogWorkspaceResourceId
 
+                Invoke-WebRequest -Uri $TableUrl -Method PATCH -Headers $Headers -Body $Tablebody
+            }
+        Catch
+            {
                 Try
                     {
                         Write-Host ""
-                        Write-host "Trying to update existing LogAnalytics table schema for table [ $($Table) ] in "
+                        Write-Host "LogAnalytics Table doesn't exist .... creating table [ $($Table) ] in"
                         Write-host $AzLogWorkspaceResourceId
 
-                        Invoke-WebRequest -Uri $TableUrl -Method PATCH -Headers $Headers -Body $Tablebody
+                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
                     }
                 Catch
                     {
-                        Try
-                            {
-                                Write-Host ""
-                                Write-Host "LogAnalytics Table doesn't exist .... creating table [ $($Table) ] in"
-                                Write-host $AzLogWorkspaceResourceId
+                        Write-Host ""
+                        Write-Host "Something went wrong .... resetting table [ $($Table) ] in"
+                        Write-host $AzLogWorkspaceResourceId
 
-                                Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
-                            }
-                        Catch
-                            {
-                                Write-Host ""
-                                Write-Host "Something went wrong .... resetting table [ $($Table) ] in"
-                                Write-host $AzLogWorkspaceResourceId
-
-                                Invoke-WebRequest -Uri $TableUrl -Method DELETE -Headers $Headers
+                        Invoke-WebRequest -Uri $TableUrl -Method DELETE -Headers $Headers
                                 
-                                Start-Sleep -Seconds 10
+                        Start-Sleep -Seconds 10
                                 
-                                Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
-                            }
+                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
                     }
+            }
         
         return
 }
@@ -164,6 +174,17 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
     #--------------------------------------------------------------------------
@@ -473,7 +494,7 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
 }
 
            
-Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId)
+Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId, $AzAppId, $AzAppSecret, $TenantId)
 {
     #--------------------------------------------------------------------------
     # Variables
@@ -490,8 +511,8 @@ Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId)
                 $oAuthUri       = "https://login.microsoftonline.com/$($TenantId)/oauth2/token"
                 $authBody       = [Ordered] @{
                                                resource = "$AccessTokenUri"
-                                               client_id = "$($LogIngestAppId)"
-                                               client_secret = "$($LogIngestAppSecret)"
+                                               client_id = "$($AzAppId)"
+                                               client_secret = "$($AzAppSecret)"
                                                grant_type = 'client_credentials'
                                              }
                 $authResponse = Invoke-RestMethod -Method Post -Uri $oAuthUri -Body $authBody -ErrorAction Stop
@@ -504,13 +525,24 @@ Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId)
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
     #--------------------------------------------------------------------------
     # get existing DCR
     #--------------------------------------------------------------------------
 
         $DcrUri = "https://management.azure.com" + $DcrResourceId + "?api-version=2022-06-01"
-        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET
+        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET -Headers $Headers
         $DcrObj = $DCR.Content | ConvertFrom-Json
 
     #--------------------------------------------------------------------------
@@ -534,7 +566,7 @@ Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId)
         $DCR = Invoke-RestMethod -Uri $DcrUri -Method PUT -Body $DcrPayload -Headers $Headers
 }
 
-Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql)
+Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql, $AzAppId, $AzAppSecret, $TenantId)
 {
     #--------------------------------------------------------------------------
     # Connection
@@ -558,6 +590,17 @@ Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql)
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
     #--------------------------------------------------------------------------
@@ -589,7 +632,7 @@ Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql)
         $DCR = Invoke-RestMethod -Uri $DcrUri -Method PUT -Body $DcrPayload -Headers $Headers
 }
 
-Function Update-AzDataCollectionRuleLogAnalyticsCustomLogTableSchema ($SchemaSourceObject, $TableName, $DcrResourceId, $AzLogWorkspaceResourceId)
+Function Update-AzDataCollectionRuleLogAnalyticsCustomLogTableSchema ($SchemaSourceObject, $TableName, $DcrResourceId, $AzLogWorkspaceResourceId, $AzAppId, $AzAppSecret, $TenantId)
 {
 
 <#
@@ -623,6 +666,17 @@ Function Update-AzDataCollectionRuleLogAnalyticsCustomLogTableSchema ($SchemaSou
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
     #--------------------------------------------------------------------------
@@ -779,6 +833,17 @@ Function Update-AzDataCollectionRuleDceEndpoint ($DcrResourceId, $DceResourceId,
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
     #--------------------------------------------------------------------------
     # get existing DCR
@@ -833,6 +898,17 @@ Function Delete-AzLogAnalyticsCustomLogTables ($TableNameLike, $AzLogWorkspaceRe
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
 
@@ -920,6 +996,17 @@ Function Delete-AzDataCollectionRules ($DcrNameLike, $AzAppId, $AzAppSecret, $Te
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
     #--------------------------------------------------------------------------
@@ -1012,6 +1099,17 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
                             }
+            }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
             }
 
     #--------------------------------------------------------------------------
@@ -1528,6 +1626,17 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
         #--------------------------------------------------------------------------
         # Check if Azure LogAnalytics Table exist
@@ -2012,6 +2121,17 @@ Function Get-AzDcrListAll ($AzAppId, $AzAppSecret, $TenantId)
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
     #--------------------------------------------------------------------------
     # Get DCRs from Azure Resource Graph
@@ -2069,6 +2189,17 @@ Function Get-AzDceListAll ($AzAppId, $AzAppSecret, $TenantId)
                                 'Authorization' = "Bearer $token"
                             }
             }
+        Else
+            {
+                $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
+                $AccessToken = $AccessToken.Token
+
+                $Header = @{
+                                'Content-Type' = 'application/json'
+                                'Accept' = 'application/json'
+                                'Authorization' = "Bearer $token"
+                           }
+            }
 
     #--------------------------------------------------------------------------
     # Get DCEs from Azure Resource Graph
@@ -2111,7 +2242,7 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $D
 }
 
 Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId, $TableName, $DcrName, $DceName, $SchemaSourceObject, `
-                                              $AzAppId, $AzAppSecret, $TenantId, $LogIngestServicePricipleObjectId, $AzDcrSetLogIngestApiAppPermissionsDcrLevel)
+                                               $AzAppId, $AzAppSecret, $TenantId, $LogIngestServicePricipleObjectId, $AzDcrSetLogIngestApiAppPermissionsDcrLevel)
 {
     <#
 
