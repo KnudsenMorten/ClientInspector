@@ -2151,7 +2151,7 @@ Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId,
 
                                     CreateUpdate-AzDataCollectionRuleLogIngestCustomLog -AzLogWorkspaceResourceId $AzLogWorkspaceResourceId -SchemaSourceObject $Schema `
                                                                                         -DceName $DceName -DcrName $DcrName -TableName $TableName `
-                                                                                        -LogIngestServicePricipleObjectId $AzDcrLogIngestServicePrincipalObjectId `
+                                                                                        -LogIngestServicePricipleObjectId $LogIngestServicePricipleObjectId `
                                                                                         -AzDcrSetLogIngestApiAppPermissionsDcrLevel $AzDcrSetLogIngestApiAppPermissionsDcrLevel `
                                                                                         -AzAppId $AzAppId -AzAppSecret $AzAppSecret -TenantId $TenantId
                                 }
