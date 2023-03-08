@@ -1640,10 +1640,10 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 
 #>
 
-        Write-host "  Checking LogAnalytics table and Data Collection Rule configuration .... Please Wait !"
+    Write-host "  Checking LogAnalytics table and Data Collection Rule configuration .... Please Wait !"
 
-        # by default ($false)
-        $AzDcrDceTableCustomLogCreateUpdate = $false     # $True/$False - typically used when updates to schema detected
+    # by default ($false)
+    $AzDcrDceTableCustomLogCreateUpdate = $false     # $True/$False - typically used when updates to schema detected
 
     #--------------------------------------------------------------------------
     # Connection
@@ -2325,14 +2325,11 @@ Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId,
                     $StructureCheck = Get-AzLogAnalyticsTableAzDataCollectionRuleStatus -AzLogWorkspaceResourceId $AzLogWorkspaceResourceId -TableName $TableName -DcrName $DcrName -SchemaSourceObject $Schema `
                                                                                         -AzAppId $AzAppId -AzAppSecret $AzAppSecret -TenantId $TenantId
 
-                    # output status of structue check
-                    $StructureCheck[0]
-
                 #-----------------------------------------------------------------------------------------------
                 # Structure check = $true -> Create/update table & DCR with necessary schema
                 #-----------------------------------------------------------------------------------------------
 
-                    If ($StructureCheck[1] -eq $true)
+                    If ($StructureCheck -eq $true)
                         {
                             If ( ( $env:COMPUTERNAME -in $AzDcrDceTableCreateFromReferenceMachine) -or ($AzDcrDceTableCreateFromAnyMachine -eq $true) )    # manage table creations
                                 {
