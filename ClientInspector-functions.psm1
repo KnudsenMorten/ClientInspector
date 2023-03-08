@@ -43,9 +43,9 @@
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -176,9 +176,9 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -526,9 +526,9 @@ Function Update-AzDataCollectionRuleResetTransformKqlDefault ($DcrResourceId, $A
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -599,9 +599,9 @@ Function Update-AzDataCollectionRuleTransformKql ($DcrResourceId, $transformKql,
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -685,9 +685,9 @@ Function Update-AzDataCollectionRuleLogAnalyticsCustomLogTableSchema ($SchemaSou
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -851,9 +851,9 @@ Function Update-AzDataCollectionRuleDceEndpoint ($DcrResourceId, $DceResourceId,
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -865,24 +865,23 @@ Function Update-AzDataCollectionRuleDceEndpoint ($DcrResourceId, $DceResourceId,
     #--------------------------------------------------------------------------
 
         $DcrUri = "https://management.azure.com" + $DcrResourceId + "?api-version=2022-06-01"
-        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET
-        $DcrObj = $DCR.Content | ConvertFrom-Json
+        $DCR = Invoke-RestMethod -Uri $DcrUri -Method GET -Headers $headers
 
     #--------------------------------------------------------------------------
     # update payload object
     #--------------------------------------------------------------------------
 
-        $DCRObj.properties.dataCollectionEndpointId = $DceResourceId
+        $DCR.properties.dataCollectionEndpointId = $DceResourceId
 
     #--------------------------------------------------------------------------
     # update existing DCR
     #--------------------------------------------------------------------------
 
-        Write-host "  Updating DCE EndpointId for DCR"
+        Write-host "Updating DCE EndpointId for DCR"
         Write-host $DcrResourceId
 
         # convert modified payload to JSON-format
-        $DcrPayload = $DcrObj | ConvertTo-Json -Depth 20
+        $DcrPayload = $Dcr | ConvertTo-Json -Depth 20
 
         # update changes to existing DCR
         $DcrUri = "https://management.azure.com" + $DcrResourceId + "?api-version=2022-06-01"
@@ -917,9 +916,9 @@ Function Delete-AzLogAnalyticsCustomLogTables ($TableNameLike, $AzLogWorkspaceRe
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -1015,9 +1014,9 @@ Function Delete-AzDataCollectionRules ($DcrNameLike, $AzAppId, $AzAppSecret, $Te
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -1088,7 +1087,7 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
 {
     <#  TROUBLESHOOTING
 
-        $DcrName  = "dcr-" + $AzDcrPrefixClient + "-" + $TableName + "_CL"
+        $DcrName  = "dcr-Clt-Demo2_Processes_CL"
         $DceName  = "dce-platform-management-client-p"
     #>
 
@@ -1118,9 +1117,9 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -1262,7 +1261,7 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
 }
 
 
-Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, $DcrStream, $Data, $AzAppId, $AzAppSecret, $TenantId)
+Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, $DcrStream, $Data, $BatchAmount, $AzAppId, $AzAppSecret, $TenantId)
 {
 
         <#  TROUBLESHOOTING
@@ -1320,11 +1319,15 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, 
                     $TotalDataLines = ($Data | Measure-Object).count
 
                     # calculate number of entries to send during each transfer - log ingestion api limits to max 1 mb per transfer
-                    If ($TotalDataLines -gt 1)
+                    If ( ($TotalDataLines -gt 1) -and ($BatchAmount -eq $null) )
                         {
                             $SizeDataSingleEntryJson  = (ConvertTo-Json -Depth 100 -InputObject @($Data[0]) -Compress).length
-                            $DataSendAmountDecimal    = (( 1mb - 500Kb) / $SizeDataSingleEntryJson)   # 500 Kb is overhead (my experience !)
+                            $DataSendAmountDecimal    = (( 1mb - 300Kb) / $SizeDataSingleEntryJson)   # 500 Kb is overhead (my experience !)
                             $DataSendAmount           = [math]::Floor($DataSendAmountDecimal)
+                        }
+                    ElseIf ($BatchAmount)
+                        {
+                            $DataSendAmount           = $BatchAmount
                         }
                     Else
                         {
@@ -1348,10 +1351,6 @@ Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce ($DceURI, $DcrImmutableId, 
                                     $indexLoopTo    = $indexLoopFrom + $DataSendAmount
                                     $DataScopedSize = $Data[$indexLoopFrom..$indexLoopTo]
                                 }
-
-                            $SizeDataSingleEntryJson  = (ConvertTo-Json -Depth 100 -InputObject @($DataScopedSize) -Compress).length
-                            $DataSendAmountDecimal    = (( 1mb - 300Kb) / $SizeDataSingleEntryJson)   # 300 Kb is overhead (my experience !)
-                            $DataSendAmount           = [math]::Floor($DataSendAmountDecimal)
 
                             # Convert data into JSON-format
                             $JSON = ConvertTo-Json -Depth 100 -InputObject @($DataScopedSize) -Compress
@@ -1648,9 +1647,9 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -2143,9 +2142,9 @@ Function Get-AzDcrListAll ($AzAppId, $AzAppSecret, $TenantId)
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -2211,9 +2210,9 @@ Function Get-AzDceListAll ($AzAppId, $AzAppSecret, $TenantId)
         Else
             {
                 $AccessToken = Get-AzAccessToken -ResourceUrl https://management.azure.com/
-                $AccessToken = $AccessToken.Token
+                $Token = $AccessToken.Token
 
-                $Header = @{
+                $Headers = @{
                                 'Content-Type' = 'application/json'
                                 'Accept' = 'application/json'
                                 'Authorization' = "Bearer $token"
@@ -2247,13 +2246,13 @@ Function Get-AzDceListAll ($AzAppId, $AzAppSecret, $TenantId)
         Return $Data
 }
 
-Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $DceName, $AzAppId, $AzAppSecret, $TenantId)
+Function Post-AzLogAnalyticsLogIngestCustomLogDcrDce-Output ($Data, $DcrName, $DceName, $AzAppId, $AzAppSecret, $TenantId, $BatchAmount)
 {
         $AzDcrDceDetails = Get-AzDcrDceDetails -DcrName $DcrName -DceName $DceName `
                                                -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
 
         Post-AzLogAnalyticsLogIngestCustomLogDcrDce  -DceUri $AzDcrDceDetails[2] -DcrImmutableId $AzDcrDceDetails[6] `
-                                                     -DcrStream $AzDcrDceDetails[7] -Data $DataVariable `
+                                                     -DcrStream $AzDcrDceDetails[7] -Data $DataVariable -BatchAmount $BatchAmount `
                                                      -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
         
         # Write result to screen
