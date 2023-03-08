@@ -9,11 +9,11 @@
 
 
             # ClientInspector
-            $AzLogWorkspaceResourceId = $ClientLogAnalyticsWorkspaceResourceId
+            $AzLogWorkspaceResourceId = $LogAnalyticsWorkspaceResourceId
             $SchemaSourceObject       = $Schema
             $TableName                = $TableName 
-            $AzAppId                  = $TableDcrSchemaCreateUpdateAppId
-            $AzAppSecret              = $TableDcrSchemaCreateUpdateAppSecret
+            $AzAppId                  = $LogIngestAppId
+            $AzAppSecret              = $LogIngestAppSecret
             $TenantId                 = $TenantId
         #>
 
@@ -65,17 +65,28 @@
             }
 
     #--------------------------------------------------------------------------
-    # Creating LogAnalytics Table based upon data source schema
+    # Creating/Updating LogAnalytics Table based upon data source schema
     #--------------------------------------------------------------------------
 
-        $tableBody = @{
-                            properties = @{
-                                            schema = @{
-                                                            name    = $Table
-                                                            columns = @($SchemaSourceObject)
-                                                        }
-                                        }
-                        } | ConvertTo-Json -Depth 10
+        $Changes = $SchemaSourceObject[40]
+
+        $tableBodyPatch = @{
+                                properties = @{
+                                                schema = @{
+                                                                name    = $Table
+                                                                columns = @($Changes)
+                                                            }
+                                            }
+                           } | ConvertTo-Json -Depth 10
+
+        $tableBodyPut   = @{
+                                properties = @{
+                                                schema = @{
+                                                                name    = $Table
+                                                                columns = @($SchemaSourceObject)
+                                                            }
+                                            }
+                           } | ConvertTo-Json -Depth 10
 
         # create/update table schema using REST
         $TableUrl = "https://management.azure.com" + $AzLogWorkspaceResourceId + "/tables/$($Table)?api-version=2021-12-01-preview"
@@ -86,14 +97,14 @@
                 Write-host "Trying to update existing LogAnalytics table schema for table [ $($Table) ] in "
                 Write-host $AzLogWorkspaceResourceId
 
-                Invoke-WebRequest -Uri $TableUrl -Method PATCH -Headers $Headers -Body $Tablebody
+                Invoke-WebRequest -Uri $TableUrl -Method Patch -Headers $Headers -Body $TablebodyPatch
             }
         Catch
             {
                 Try
                     {
                         Write-Host ""
-                        Write-Host "LogAnalytics Table doesn't exist .... creating table [ $($Table) ] in"
+                        Write-Host "LogAnalytics Table doesn't exist or problems detected .... creating table [ $($Table) ] in"
                         Write-host $AzLogWorkspaceResourceId
 
                         Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
@@ -101,7 +112,7 @@
                 Catch
                     {
                         Write-Host ""
-                        Write-Host "Something went wrong .... resetting table [ $($Table) ] in"
+                        Write-Host "Something went wrong .... recreating table [ $($Table) ] in"
                         Write-host $AzLogWorkspaceResourceId
 
                         Invoke-WebRequest -Uri $TableUrl -Method DELETE -Headers $Headers
@@ -1715,6 +1726,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
                             }
 
                     # Verify LogAnalytics table schema matches source object ($SchemaSourceObject) - otherwise set flag to update schema in LA/DCR
+<#
                         ForEach ($Entry in $SchemaSourceObject)
                             {
                                 $ChkSchema = $CurrentTableSchema | Where-Object { ($_.name -eq $Entry.name) -and ($_.type -eq $Entry.type) }
@@ -1726,6 +1738,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
                                         $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                                     }
                             }
+#>
                 }
 
         #--------------------------------------------------------------------------
