@@ -70,6 +70,7 @@
 
         $Changes = $SchemaSourceObject[40]
 
+<#
         $tableBodyPatch = @{
                                 properties = @{
                                                 schema = @{
@@ -78,7 +79,7 @@
                                                             }
                                             }
                            } | ConvertTo-Json -Depth 10
-
+#>
         $tableBodyPut   = @{
                                 properties = @{
                                                 schema = @{
@@ -97,7 +98,7 @@
                 Write-host "Trying to update existing LogAnalytics table schema for table [ $($Table) ] in "
                 Write-host $AzLogWorkspaceResourceId
 
-                Invoke-WebRequest -Uri $TableUrl -Method Patch -Headers $Headers -Body $TablebodyPatch
+                Invoke-WebRequest -Uri $TableUrl -Method Patch -Headers $Headers -Body $TablebodyPut
             }
         Catch
             {
@@ -107,7 +108,7 @@
                         Write-Host "LogAnalytics Table doesn't exist or problems detected .... creating table [ $($Table) ] in"
                         Write-host $AzLogWorkspaceResourceId
 
-                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
+                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $TablebodyPut
                     }
                 Catch
                     {
@@ -119,7 +120,7 @@
                                 
                         Start-Sleep -Seconds 10
                                 
-                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $Tablebody
+                        Invoke-WebRequest -Uri $TableUrl -Method PUT -Headers $Headers -Body $TablebodyPut
                     }
             }
         
@@ -1702,7 +1703,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
                                 }
                            Catch
                                 {
-                                    Write-host "     LogAnalytics table wasn't found !"
+                                    Write-host "LogAnalytics table wasn't found !"
                                     # initial setup - force to auto-create structure
                                     $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                                 }
@@ -1721,7 +1722,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 
                         If ($SchemaSourceObjectCount -gt $CurrentTableSchemaCount)
                             {
-                               Write-host "     Schema source object contains more properties than defined in current schema"
+                               Write-host "Schema mismatch - Schema source object contains more properties than defined in current schema"
                                $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                             }
 
@@ -1733,7 +1734,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 
                                 If ($ChkSchema -eq $null)
                                     {
-                                        Write-host "     Schema mismatch - missing or different type (name: $($Entry.name), type: $($Entry.type))"
+                                        Write-host "Schema mismatch - property missing or different type (name: $($Entry.name), type: $($Entry.type))"
                                         # Set flag to update schema
                                         $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                                     }
@@ -1749,14 +1750,14 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
             $DcrInfo = $global:AzDcrDetails | Where-Object { $_.name -eq $DcrName }
                 If (!($DcrInfo))
                     {
-                        Write-host "     DCR was not found [ $($DcrName) ]"
+                        Write-host "DCR was not found [ $($DcrName) ]"
                         # initial setup - force to auto-create structure
                         $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                     }
 
             If ($AzDcrDceTableCustomLogCreateUpdate -eq $false)
                 {
-                    Write-host "     Success"
+                    Write-host "Success - Schema & DCR structure is OK"
                 }
 
         Return $AzDcrDceTableCustomLogCreateUpdate
