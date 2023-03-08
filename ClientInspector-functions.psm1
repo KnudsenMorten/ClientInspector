@@ -254,6 +254,7 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
     #------------------------------------------------------------------------------------------------
     # Build variables
     #------------------------------------------------------------------------------------------------
+
         # build variables
         $KustoDefault                               = "source | extend TimeGenerated = now()"
         $StreamNameFull                             = "Custom-" + $TableName + "_CL"
@@ -427,8 +428,8 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
     #--------------------------------------------------------------------------
 
         Write-Host ""
-        Write-host "Waiting 15 sec to let Azure sync up so DCR rule can be retrieved from Azure Resource Graph"
-        Start-Sleep -Seconds 15
+        Write-host "Waiting 10 sec to let Azure sync up so DCR rule can be retrieved from Azure Resource Graph"
+        Start-Sleep -Seconds 10
 
     #--------------------------------------------------------------------------
     # get DCR information using Azure Resource Graph
@@ -482,13 +483,14 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
                     {
                         Write-host $result
                     }
+
+                # Sleep 10 sec to let Azure sync up
+                Write-Host ""
+                Write-host "Waiting 10 sec to let Azure sync up for permissions to replicate"
+                Start-Sleep -Seconds 10
+                Write-Host ""
             }
 
-        # Sleep 10 sec to let Azure sync up
-        Write-Host ""
-        Write-host "Waiting 10 sec to let Azure sync up for permissions to replicate"
-        Start-Sleep -Seconds 10
-        Write-Host ""
 }
 
            
