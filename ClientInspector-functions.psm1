@@ -432,13 +432,10 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
         Start-Sleep -Seconds 10
 
     #--------------------------------------------------------------------------
-    # get DCR information using Azure Resource Graph
+    # updating DCR list using Azure Resource Graph due to new DCR was created
     #--------------------------------------------------------------------------
 
         $global:AzDcrDetails = Get-AzDcrListAll -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
-
-        $DcrRule = $global:AzDcrDetails | where-Object { $_.name -eq $DcrName }
-        $DcrRuleId = $DcrRule.id
 
     #--------------------------------------------------------------------------
     # delegating Monitor Metrics Publisher Rolepermission to Log Ingest App
@@ -446,6 +443,9 @@ Function CreateUpdate-AzDataCollectionRuleLogIngestCustomLog ($SchemaSourceObjec
 
         If ($AzDcrSetLogIngestApiAppPermissionsDcrLevel -eq $true)
             {
+                $DcrRule = $global:AzDcrDetails | where-Object { $_.name -eq $DcrName }
+                $DcrRuleId = $DcrRule.id
+
                 Write-Host ""
                 Write-host "Setting Monitor Metrics Publisher Role permissions on DCR [ $($DcrName) ]"
 
@@ -1072,7 +1072,7 @@ Function Delete-AzDataCollectionRules ($DcrNameLike, $AzAppId, $AzAppSecret, $Te
                                             ForEach ($DcrInfo in $DcrScope)
                                                 { 
                                                     $DcrResourceId = $DcrInfo.id
-                                                    Write-host "  Deleting Data Collection Rules [ $($DcrInfo.name) ] ... Please Wait !"
+                                                    Write-host "Deleting Data Collection Rules [ $($DcrInfo.name) ] ... Please Wait !"
                                                     Invoke-AzRestMethod -Path ("$DcrResourceId"+"?api-version=2022-06-01") -Method DELETE
                                                 }
                                         }
@@ -1140,7 +1140,18 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
                         $DceInfo = $global:AzDceDetails | Where-Object { $_.name -eq $DceName }
                             If (!($DceInfo))
                                 {
-                                    Write-Output "Could not find DCE with name [ $($DceName) ]"
+                                    # record not found - rebuild list and try again
+                                    
+                                    Start-Sleep -s 10
+
+                                    # building global variable with all DCEs, which can be viewed by Log Ingestion app
+                                    $global:AzDceDetails = Get-AzDceListAll -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
+    
+                                    $DceInfo = $global:AzDceDetails | Where-Object { $_.name -eq $DceName }
+                                       If (!($DceInfo))
+                                        {
+                                            Write-Output "Could not find DCE with name [ $($DceName) ]"
+                                        }
                                 }
                     }
                 Else
@@ -1182,11 +1193,22 @@ Function Get-AzDcrDceDetails ($DceName, $DcrName, $AzAppId, $AzAppSecret, $Tenan
             {
                 If ($global:AzDcrDetails)   # global variables was defined. Used to mitigate throttling in Azure Resource Graph (free service)
                     {
-                        # Retrieve DCR in scope
+                        # Retrieve DCE in scope
                         $DcrInfo = $global:AzDcrDetails | Where-Object { $_.name -eq $DcrName }
                             If (!($DcrInfo))
                                 {
-                                    Write-Output "Could not find DCR with name [ $($DcrName) ]"
+                                    # record not found - rebuild list and try again
+                                    
+                                    Start-Sleep -s 10
+
+                                    # building global variable with all DCEs, which can be viewed by Log Ingestion app
+                                    $global:AzDcrDetails = Get-AzDcrListAll -AzAppId $LogIngestAppId -AzAppSecret $LogIngestAppSecret -TenantId $TenantId
+    
+                                    $DcrInfo = $global:AzDceDetails | Where-Object { $_.name -eq $DcrName }
+                                       If (!($DcInfo))
+                                        {
+                                            Write-Output "Could not find DCR with name [ $($DcrName) ]"
+                                        }
                                 }
                     }
                 Else
