@@ -1691,6 +1691,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
                                 }
                            Catch
                                 {
+                                    Write-host "     LogAnalytics table wasn't found !"
                                     # initial setup - force to auto-create structure
                                     $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                                 }
@@ -1709,6 +1710,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 
                         If ($SchemaSourceObjectCount -gt $CurrentTableSchemaCount)
                             {
+                               Write-host "     Schema source object contains more properties than defined in current schema"
                                $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                             }
 
@@ -1719,6 +1721,7 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
 
                                 If ($ChkSchema -eq $null)
                                     {
+                                        Write-host "     Schema mismatch - missing or different type (name: $($Entry.name), type: $($Entry.type))"
                                         # Set flag to update schema
                                         $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                                     }
@@ -1733,9 +1736,15 @@ Function Get-AzLogAnalyticsTableAzDataCollectionRuleStatus ($AzLogWorkspaceResou
             $DcrInfo = $global:AzDcrDetails | Where-Object { $_.name -eq $DcrName }
                 If (!($DcrInfo))
                     {
+                        Write-host "     DCR was not found [ $($DcrName) ]"
                         # initial setup - force to auto-create structure
                         $AzDcrDceTableCustomLogCreateUpdate = $true     # $True/$False - typically used when updates to schema detected
                     }
+
+            If ($AzDcrDceTableCustomLogCreateUpdate -eq $false)
+                {
+                    Write-host "     Success"
+                }
 
         Return $AzDcrDceTableCustomLogCreateUpdate
     }
@@ -2316,12 +2325,14 @@ Function CheckCreateUpdate-TableDcr-Structure ($Data, $AzLogWorkspaceResourceId,
                     $StructureCheck = Get-AzLogAnalyticsTableAzDataCollectionRuleStatus -AzLogWorkspaceResourceId $AzLogWorkspaceResourceId -TableName $TableName -DcrName $DcrName -SchemaSourceObject $Schema `
                                                                                         -AzAppId $AzAppId -AzAppSecret $AzAppSecret -TenantId $TenantId
 
+                    # output status of structue check
+                    $StructureCheck[0]
 
                 #-----------------------------------------------------------------------------------------------
                 # Structure check = $true -> Create/update table & DCR with necessary schema
                 #-----------------------------------------------------------------------------------------------
 
-                    If ($StructureCheck -eq $true)
+                    If ($StructureCheck[1] -eq $true)
                         {
                             If ( ( $env:COMPUTERNAME -in $AzDcrDceTableCreateFromReferenceMachine) -or ($AzDcrDceTableCreateFromAnyMachine -eq $true) )    # manage table creations
                                 {
